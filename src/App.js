@@ -6,13 +6,12 @@ import { calculateWinner } from './winner';
 import './styles/root.scss';
 
 function App() {
-  const [history, setHistory] = useState([
-    { board: Array(9).fill(null), isXnext: true },
-  ]); // useState hook will take the initial state and return an array of exactly 2 elements
+  const newGame = [{ board: Array(9).fill(null), isXnext: true }];
+  const [history, setHistory] = useState(newGame); // useState hook will take the initial state and return an array of exactly 2 elements
   const [currMove, setCurrMove] = useState(0); //  These elements destructured here are the instance of current state and the function to update the state
 
   const current = history[currMove];
-  const winner = calculateWinner(current.board);
+  const { winner, winningSquares } = calculateWinner(current.board);
 
   // setBoard is used to update the state by passing the updating value OR by passing a function that will update the value.
   // setBoard('X') will simply update the value of board with 'X'
@@ -46,11 +45,23 @@ function App() {
     setCurrMove(move);
   };
 
+  const resetGame = () => {
+    setHistory(newGame);
+    setCurrMove(0);
+  };
+
   return (
     <div className="app">
       <h1>TIC TAC TOE</h1>
       <StatusMessage winner={winner} current={current} />
-      <Board board={current.board} handleSquareClick={handleSquareClick} />
+      <Board
+        board={current.board}
+        handleSquareClick={handleSquareClick}
+        winningSquares={winningSquares}
+      />
+      <button type="button" onClick={resetGame}>
+        Start new game{' '}
+      </button>
       <History history={history} moveTo={moveTo} currMove={currMove} />
     </div>
   );
