@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Board from '../components/Board';
 import History from '../components/History';
+import StatusMessage from '../components/StatusMessage';
 import { calculateWinner } from './winner';
 import './styles/root.scss';
 
@@ -13,11 +14,6 @@ function App() {
   const current = history[currMove];
   const winner = calculateWinner(current.board);
 
-  console.log(history);
-
-  const message = winner
-    ? `Winner is ${winner}`
-    : `Next is ${current.isXnext ? 'X' : 'O'}`;
   // setBoard is used to update the state by passing the updating value OR by passing a function that will update the value.
   // setBoard('X') will simply update the value of board with 'X'
 
@@ -53,7 +49,7 @@ function App() {
   return (
     <div className="app">
       <h1>TIC TAC TOE</h1>
-      <h3>{message}</h3>
+      <StatusMessage winner={winner} current={current} />
       <Board board={current.board} handleSquareClick={handleSquareClick} />
       <History history={history} moveTo={moveTo} currMove={currMove} />
     </div>
