@@ -59,10 +59,12 @@ function App() {
         handleSquareClick={handleSquareClick}
         winningSquares={winningSquares}
       />
-      <button type="button" onClick={resetGame}>
+      <button type="button" onClick={resetGame} className={`btn-reset ${winner?'active':''}`}>
         Start new game{' '}
       </button>
+      <h3 style={{fontWeight:'normal'} }>Current game history</h3>
       <History history={history} moveTo={moveTo} currMove={currMove} />
+      <div className="bg-balls"> </div>
     </div>
   );
 }

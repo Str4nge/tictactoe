@@ -9,11 +9,19 @@ const StatusMessage = ({ winner, current }) => {
   });
   return (
     // Conditional rendering
-    <h3>
-      {winner && `Winner is ${winner}`}
-      {!winner && !noMoveLeft && `Next is ${current.isXnext ? 'X' : 'O'}`}
+    <div className="staus-message">
+      {winner && (
+      <>
+      Winner is <span className={winner==='X'?'text-green':'text-orange'}>{winner}</span>
+      </>
+      )}
+      {!winner && !noMoveLeft && (
+        <>
+        Next player is <span className={current.isXnext?'text-green':'text-orange'}> {current.isXnext ? 'X' : 'O'}</span>
+        </>
+      )}
       {!winner && noMoveLeft && 'Game draw!'}
-    </h3>
+    </div>
   );
 };
 
